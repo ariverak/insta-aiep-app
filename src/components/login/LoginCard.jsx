@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function LoginCard() {
+export default function LoginCard({ logIn }) {
 
   const classes = useStyles();
 
@@ -29,14 +29,14 @@ export default function LoginCard() {
   const [ password, setPassword  ] = useState('');
 
   function onLogin(){
-    console.log(username,password)
+    logIn(username,password)
   }
 
   return (
     <Card className={classes.card}>
       <CardMedia
         className={classes.media}
-          image="https://concepto.de/wp-content/uploads/2015/03/paisaje-e1549600034372.jpg"
+          image="images/instagram-banner.gif"
           title="Contemplative Reptile"
       />
       <CardContent>

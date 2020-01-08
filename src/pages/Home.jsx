@@ -23,7 +23,11 @@ function Home(){
     },[])
 
     function getPosts(){
-        fetch('http://localhost:5000/posts').then(res => {
+        fetch('http://localhost:5000/allposts',{
+            headers : {
+                'Authorization' : localStorage.getItem('accessToken')
+            }
+        }).then(res => {
             return res.json()
         }).then(data => {
             setPosts(data)
@@ -33,9 +37,9 @@ function Home(){
     return (
         <Dashboard>
             <Grid className={classes.root} container direction="column">
-                {posts.map(post => (
-                    <Grid container justify="center">
-                        <Post src={post.srcImage} likes={post.likes} creator={post.creator} />
+                {posts.map((post,i) => (
+                    <Grid key={i} container justify="center">
+                        <Post src={post.post} likes={1} creator={post.user} />
                     </Grid>
                 ))}
             </Grid>

@@ -9,16 +9,35 @@ const useStyles = makeStyles({
         display : 'flex',
         justifyContent : 'center',
         alignItems : 'center',
-        background : 'linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(32,32,136,1) 42%, rgba(23,85,171,1) 59%, rgba(0,212,255,1) 100%)'
+        background : '#f8f8f8'
     }
 })
 
 
 function LoginPage(){
+
     const classes = useStyles();
+
+    function logIn(username,password){
+        fetch('http://localhost:5000/login',{
+            method : 'POST',
+            headers : {
+                'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify({ username , password })
+        }).then( async data => {
+            if(data.status === 200) {
+                localStorage.setItem('accessToken',await data.text());
+                window.location.reload();
+            }else{
+                alert(await data.text())
+            }
+        })
+    }
+
     return (
         <div className={classes.root}>
-            <LoginCard />
+            <LoginCard logIn={logIn} />
         </div>
     )
 }

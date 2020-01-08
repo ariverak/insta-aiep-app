@@ -6,6 +6,8 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import BrightnessLow from '@material-ui/icons/BrightnessLow';
 import Typography from '@material-ui/core/Typography';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles({
     root : {
@@ -44,13 +46,33 @@ const useStyles = makeStyles({
         marginTop : -50
     },
     setupIcon : {
-        marginLeft : 10
+        marginLeft : 10,
+        cursor : 'pointer'
+    },
+    menu : {
+        minWidth : 120
     }
 })
 
 export default function MyInfo(){
 
     const classes = useStyles();
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const handleClick = event => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    function closeSession(){
+
+        localStorage.removeItem('accessToken');
+        handleClose()
+        window.location.replace('/')
+    }
 
     return (
         <Grid container className={classes.root}>
@@ -62,7 +84,18 @@ export default function MyInfo(){
                     <Grid className={classes.infoContainer} item xs={12}>
                         <h1 className={classes.profileName}>Nombre Cuenta</h1>
                         <Button variant="outlined">Editar Perfil</Button>
-                        <BrightnessLow className={classes.setupIcon} />
+                        <div>
+                            <BrightnessLow onClick={handleClick} className={classes.setupIcon} />
+                            <Menu
+                                id="simple-menu"
+                                anchorEl={anchorEl}
+                                keepMounted
+                                open={Boolean(anchorEl)}
+                                onClose={handleClose}
+                            >
+                                <MenuItem className={classes.menu} onClick={closeSession}>Salir</MenuItem>
+                            </Menu>
+                        </div>
                     </Grid>
                     <Grid className={clsx(classes.infoContainer,classes.infoCount)} item xs={12}>
                         <Grid container alignItems="center" >

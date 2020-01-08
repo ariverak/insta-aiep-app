@@ -40,9 +40,9 @@ export default function MiniPost(props){
         <Card className={classes.root}>
             <CardHeader 
             avatar={
-                <Avatar aria-label="recipe" src={props.creator.src} />
+                <Avatar aria-label="recipe" />
             }
-            title={<b>{props.creator.name}</b>} />
+            title={<b>{props.creator}</b>} />
             <CardMedia
                 className={classes.media}
                 image={props.src}
